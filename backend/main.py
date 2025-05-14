@@ -8,7 +8,7 @@ from .routers import agents, workflow, analysis, api_runs
 
 # Create FastAPI app instance
 app = FastAPI(
-    title="A Share Investment Agent - Backend",
+    title="InvestAgents - Backend",
     description="API for monitoring LLM interactions within the agent workflow.",
     version="0.1.0"
 )
