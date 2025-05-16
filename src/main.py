@@ -1,8 +1,6 @@
 import sys
 import argparse
 import uuid  # Import uuid for run IDs
-import threading  # Import threading for background task
-import uvicorn  # Import uvicorn to run FastAPI
 
 from datetime import datetime, timedelta
 from langgraph.graph import END, StateGraph
@@ -199,20 +197,8 @@ workflow.add_edge("portfolio_management_agent", END)
 app = workflow.compile()
 
 
-# --- FastAPI Background Task ---
-def run_fastapi():
-    print("--- Starting FastAPI server in background (port 8000) ---")
-    # Note: Change host/port/log_level as needed
-    # Disable Uvicorn's own logging config to avoid conflicts with app's logging
-    uvicorn.run(fastapi_app, host="0.0.0.0", port=8000, log_config=None)
-
-
 # --- Main Execution Block ---
 if __name__ == "__main__":
-    # Start FastAPI server in a background thread
-    fastapi_thread = threading.Thread(target=run_fastapi, daemon=True)
-    fastapi_thread.start()
-
     # --- Argument Parsing (remains the same) ---
     parser = argparse.ArgumentParser(
         description='Run the hedge fund trading system')
