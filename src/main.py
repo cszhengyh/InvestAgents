@@ -119,7 +119,7 @@ def run_hedge_fund(run_id: str, ticker: str, start_date: str, end_date: str, por
 
 
 # --- Define the Workflow Graph ---
-workflow = StateGraph(AgentState)
+workflow = StateGraph(AgentState) # initial_state is an implement of AgentState
 
 # Add nodes - Remove explicit log_agent_execution calls
 # The @agent_endpoint decorator now handles logging to BaseLogStorage
