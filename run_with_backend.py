@@ -86,9 +86,9 @@ def run_with_backend():
     # 打印欢迎消息
     print("\n" + "="*70)
     if args.ticker:
-        print(f"🤖 A股投资Agent系统 (带API后端) - 分析股票: {args.ticker}")
+        print(f"InvestAgents - Ticker: {args.ticker}")
     else:
-        print(f"🤖 A股投资Agent系统 (仅API后端模式)")
+        print(f"InvestAgents")
     print("="*70)
 
     # 启动后端服务器（在后台线程中）
