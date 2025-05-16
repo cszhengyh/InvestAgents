@@ -40,17 +40,17 @@ stop_event = threading.Event()
 def start_backend_server(host="0.0.0.0", port=8000, stop_event=None):
     """启动FastAPI后端服务器"""
     print(
-        f"\n🚀 启动后端API服务器 - 访问 http://{host if host != '0.0.0.0' else 'localhost'}:{port}/docs 查看API文档")
+        f"\n🚀 Start the backend API server - visit http://{host if host != '0.0.0.0' else 'localhost'}:{port}/docs to view the API documentation.\n")
     # 使用新的API服务器启动函数，设置参数使其可以被正确地中断
     start_api_server(host=host, port=port, stop_event=stop_event)
 
 
 def signal_handler(sig, frame):
     """处理退出信号"""
-    print("\n\n⚠️ 收到终止信号，正在优雅关闭服务...\n")
+    print("\n\n⚠️ Received termination signal, shutting down service gracefully...\n")
     stop_event.set()  # 设置停止标志
     time.sleep(1)  # 给服务一点时间来清理
-    print("👋 服务已停止")
+    print("👋 Service stopped.")
     sys.exit(0)
 
 
@@ -100,7 +100,7 @@ def run_with_backend():
     backend_thread.start()
 
     # 等待后端服务启动
-    print("⏳ 等待后端服务启动...")
+    print("⏳ Waiting for backend service to start...")
     time.sleep(2)  # 给uvicorn一些启动时间
 
     run_id = None
@@ -155,15 +155,15 @@ def run_with_backend():
     # 提示API访问信息
     print("\n" + "-"*70)
     print(
-        f"✅ 后端API服务已启动 - 访问 http://localhost:{args.backend_port}/docs 查看API文档")
+        f"✅ The backend API service has been started - visit http://localhost:{args.backend_port}/docs to view the API documentation.")
     if run_id:
         print(f"📝 可通过API查看Agent执行历史和推理过程")
         print(f"🆔 本次运行ID: {run_id}")
-    print(f"🔄 可通过 POST /analysis/start 接口触发新的股票分析")
+    print(f"🔄 New stock analysis can be triggered via the POST /analysis/start interface.")
     print("-"*70)
 
     # 保持程序运行，让后端服务继续提供服务
-    print("\n按Ctrl+C退出...\n")
+    print("\nPress Ctrl+C to exit...\n")
 
     try:
         # 使用定时检查而不是直接join，这样可以更好地响应Ctrl+C

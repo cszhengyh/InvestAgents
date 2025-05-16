@@ -34,24 +34,24 @@ env_path = os.path.join(project_root, '.env')
 # 加载环境变量
 if os.path.exists(env_path):
     load_dotenv(env_path, override=True)
-    logger.info(f"{SUCCESS_ICON} 已加载环境变量: {env_path}")
+    logger.info(f"{SUCCESS_ICON} environment variables loaded. {env_path}")
 else:
-    logger.warning(f"{ERROR_ICON} 未找到环境变量文件: {env_path}")
+    logger.warning(f"{ERROR_ICON} environment variables file not found. {env_path}")
 
 # 验证环境变量
 api_key = os.getenv("GEMINI_API_KEY")
 model = os.getenv("GEMINI_MODEL")
 
 if not api_key:
-    logger.error(f"{ERROR_ICON} 未找到 GEMINI_API_KEY 环境变量")
-    raise ValueError("GEMINI_API_KEY not found in environment variables")
+    logger.error(f"{ERROR_ICON} GEMINI_API_KEY environment variable not found.")
+    raise ValueError("GEMINI_API_KEY not found in environment variables.")
 if not model:
     model = "gemini-1.5-flash"
-    logger.info(f"{WAIT_ICON} 使用默认模型: {model}")
+    logger.info(f"{WAIT_ICON} Utilize the default model: {model}")
 
 # 初始化 Gemini 客户端
 client = genai.Client(api_key=api_key)
-logger.info(f"{SUCCESS_ICON} Gemini 客户端初始化成功")
+logger.info(f"{SUCCESS_ICON} Gemini client initialization successful.")
 
 
 @backoff.on_exception(
@@ -64,9 +64,9 @@ logger.info(f"{SUCCESS_ICON} Gemini 客户端初始化成功")
 def generate_content_with_retry(model, contents, config=None):
     """带重试机制的内容生成函数"""
     try:
-        logger.info(f"{WAIT_ICON} 正在调用 Gemini API...")
-        logger.debug(f"请求内容: {contents}")
-        logger.debug(f"请求配置: {config}")
+        logger.info(f"{WAIT_ICON} Calling Gemini API...")
+        logger.debug(f"Request content: {contents}")
+        logger.debug(f"Request configuration: {config}")
 
         response = client.models.generate_content(
             model=model,
@@ -74,20 +74,20 @@ def generate_content_with_retry(model, contents, config=None):
             config=config
         )
 
-        logger.info(f"{SUCCESS_ICON} API 调用成功")
-        logger.debug(f"响应内容: {response.text[:500]}...")
+        logger.info(f"{SUCCESS_ICON} API call successful.")
+        logger.debug(f"Response content: {response.text[:500]}...")
         return response
     except Exception as e:
         error_msg = str(e)
         if "location" in error_msg.lower():
             # 使用红色感叹号和红色文字提示
-            logger.info(f"\033[91m❗ Gemini API 地理位置限制错误: 请使用美国节点VPN后重试\033[0m")
-            logger.error(f"详细错误: {error_msg}")
+            logger.info(f"\033[91m❗ Gemini API geo-restriction error: Please try again using a US node VPN\033[0m")
+            logger.error(f"Detailed Error: {error_msg}")
         elif "AFC is enabled" in error_msg:
-            logger.warning(f"{ERROR_ICON} 触发 API 限制，等待重试... 错误: {error_msg}")
+            logger.warning(f"{ERROR_ICON} API throttling triggered, waiting to retry... Error: {error_msg}")
             time.sleep(5)
         else:
-            logger.error(f"{ERROR_ICON} API 调用失败: {error_msg}")
+            logger.error(f"{ERROR_ICON} API call failed: {error_msg}")
         raise e
 
 
@@ -124,5 +124,5 @@ def get_chat_completion(messages, model=None, max_retries=3, initial_retry_delay
             initial_retry_delay=initial_retry_delay
         )
     except Exception as e:
-        logger.error(f"{ERROR_ICON} get_chat_completion 发生错误: {str(e)}")
+        logger.error(f"{ERROR_ICON} get_chat_completion error: {str(e)}")
         return None
