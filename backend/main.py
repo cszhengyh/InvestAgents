@@ -18,6 +18,10 @@ app = FastAPI(
 # Adjust origins as needed for production environments.
 origins = ["*"]  # Allow all origins
 
+'''
+https://chatgpt.com/share/6826b1ea-4aa8-8005-a33e-85385acf71a7
+credentials & headers: https://chatgpt.com/share/6826ece2-7448-8005-a4e3-6e5e8c010b60
+'''
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
