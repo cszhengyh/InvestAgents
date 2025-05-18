@@ -340,21 +340,18 @@ def get_price_history(symbol: str, start_date: str = None, end_date: str = None,
         - kurtosis: 峰度
     """
     try:
-        # 获取当前日期和昨天的日期
         current_date = datetime.now()
         yesterday = current_date - timedelta(days=1)
 
-        # 如果没有提供日期，默认使用昨天作为结束日期
         if not end_date:
-            end_date = yesterday  # 使用昨天作为结束日期
+            end_date = yesterday
         else:
             end_date = datetime.strptime(end_date, "%Y-%m-%d")
-            # 确保end_date不会超过昨天
             if end_date > yesterday:
                 end_date = yesterday
 
         if not start_date:
-            start_date = end_date - timedelta(days=365)  # 默认获取一年的数据
+            start_date = end_date - timedelta(days=365)
         else:
             start_date = datetime.strptime(start_date, "%Y-%m-%d")
 
