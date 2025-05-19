@@ -307,7 +307,7 @@ def get_price_history(symbol: str, start_date: str = None, end_date: str = None,
         symbol: 股票代码
         start_date: 开始日期，格式：YYYY-MM-DD，如果为None则默认获取过去一年的数据
         end_date: 结束日期，格式：YYYY-MM-DD，如果为None则使用昨天作为结束日期
-        adjust: 复权类型，可选值：
+        adjust: 复权类型，可选值：# https://chatgpt.com/share/682b4a1e-5134-8005-a742-efa8b6adc787
                - "": 不复权
                - "qfq": 前复权（默认）
                - "hfq": 后复权
@@ -373,6 +373,7 @@ def get_price_history(symbol: str, start_date: str = None, end_date: str = None,
                 return pd.DataFrame()
 
             # 重命名列以匹配技术分析代理的需求
+            # https://chatgpt.com/share/6829cdaa-0ebc-8005-a251-bbdb47701380
             df = df.rename(columns={
                 "日期": "date",
                 "开盘": "open",
