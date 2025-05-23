@@ -4,7 +4,8 @@ import sys
 import logging
 from contextvars import ContextVar
 from typing import Any, Callable, List, Optional, Dict, Tuple
-from datetime import datetime, UTC
+from datetime import datetime, timezone
+UTC = timezone.utc
 
 from backend.schemas import LLMInteractionLog, AgentExecutionLog
 from backend.storage.base import BaseLogStorage

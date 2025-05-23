@@ -4,7 +4,8 @@
 
 import json
 from typing import Any, Dict
-from datetime import datetime, UTC
+from datetime import datetime, timezone
+UTC = timezone.utc
 
 
 def serialize_agent_state(state: Dict) -> Dict:
