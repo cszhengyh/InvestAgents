@@ -25,12 +25,6 @@ from src.agents.debate_room import debate_room_agent
 from src.utils.output_logger import OutputLogger
 # 导入原始函数，但不再进行猴子补丁
 from src.tools.openrouter_config import get_chat_completion
-from src.utils.llm_interaction_logger import (
-    log_agent_execution,
-    set_global_log_storage
-)
-from backend.dependencies import get_log_storage
-from backend.main import app as fastapi_app  # Import the FastAPI app
 
 # --- Import Summary Report Generator ---
 try:
@@ -49,15 +43,11 @@ except ImportError:
 
 # --- Initialize Logging ---
 
-# 1. Initialize Log Storage
-log_storage = get_log_storage()
-set_global_log_storage(log_storage)  # Set storage in context for the wrapper
-
 # 移除猴子补丁逻辑
-# 2. Wrap the original LLM call function
+# 1. Wrap the original LLM call function
 # logged_get_chat_completion = wrap_llm_call(original_get_chat_completion)
 
-# 3. Monkey-patch the function in its original module
+# 2. Monkey-patch the function in its original module
 # src.tools.openrouter_config.get_chat_completion = logged_get_chat_completion
 # Optional: Confirmation message
 # print("--- Patched get_chat_completion for logging ---")
@@ -120,8 +110,6 @@ def run_hedge_fund(run_id: str, ticker: str, start_date: str, end_date: str, por
 # --- Define the Workflow Graph ---
 workflow = StateGraph(AgentState) # initial_state is an implement of AgentState
 
-# Add nodes - Remove explicit log_agent_execution calls
-# The 
 workflow.add_node("market_data_agent", market_data_agent)
 workflow.add_node("technical_analyst_agent", technical_analyst_agent)
 workflow.add_node("fundamentals_agent", fundamentals_agent)
