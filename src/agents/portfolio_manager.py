@@ -4,11 +4,11 @@ import json
 
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
 from src.tools.openrouter_config import get_chat_completion
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 
 
 ##### Portfolio Management Agent #####
-@agent_endpoint("portfolio_management", "负责投资组合管理和最终交易决策")
+
 def portfolio_management_agent(state: AgentState):
     """Responsible for portfolio management"""
     show_workflow_status("Portfolio Manager")

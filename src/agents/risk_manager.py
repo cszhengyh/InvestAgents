@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage
 
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
 from src.tools.api import prices_to_df
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 
 import json
 import ast
@@ -12,7 +12,7 @@ import ast
 ##### Risk Management Agent #####
 
 
-@agent_endpoint("risk_management", "风险管理专家，评估投资风险并给出风险调整后的交易建议")
+
 def risk_management_agent(state: AgentState):
     """Responsible for risk management"""
     show_workflow_status("Risk Manager")

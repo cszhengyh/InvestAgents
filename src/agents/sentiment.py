@@ -2,7 +2,7 @@ from langchain_core.messages import HumanMessage
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
 from src.tools.news_crawler import get_stock_news, get_news_sentiment
 from src.utils.logging_config import setup_logger
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 import json
 from datetime import datetime, timedelta
 
@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 logger = setup_logger('sentiment_agent')
 
 
-@agent_endpoint("sentiment", "情感分析师，分析市场新闻和社交媒体情绪")
+
 def sentiment_agent(state: AgentState):
     """Responsible for sentiment analysis"""
     show_workflow_status("Sentiment Analyst")

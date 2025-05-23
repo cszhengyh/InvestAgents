@@ -1,14 +1,14 @@
 from langchain_core.messages import HumanMessage
 
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 
 import json
 
 ##### Fundamental Agent #####
 
 
-@agent_endpoint("fundamentals", "基本面分析师，分析公司财务指标、盈利能力和增长潜力")
+
 def fundamentals_agent(state: AgentState):
     """Responsible for fundamental analysis"""
     show_workflow_status("Fundamentals Analyst")

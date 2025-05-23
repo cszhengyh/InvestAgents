@@ -1,7 +1,7 @@
 from langchain_core.messages import HumanMessage
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
 from src.tools.openrouter_config import get_chat_completion
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 import json
 import ast
 import logging
@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger('debate_room')
 
 
-@agent_endpoint("debate_room", "辩论室，分析多空双方观点，得出平衡的投资结论")
+
 def debate_room_agent(state: AgentState):
     """Facilitates debate between bull and bear researchers to reach a balanced conclusion."""
     show_workflow_status("Debate Room")

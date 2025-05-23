@@ -4,7 +4,7 @@ from typing import Dict
 from langchain_core.messages import HumanMessage
 
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 
 import json
 import pandas as pd
@@ -14,7 +14,7 @@ from src.tools.api import prices_to_df
 
 
 ##### Technical Analyst #####
-@agent_endpoint("technical_analyst", "技术分析师，提供基于价格走势、指标和技术模式的交易信号")
+
 def technical_analyst_agent(state: AgentState):
     """
     Sophisticated technical analysis system that combines multiple trading strategies:

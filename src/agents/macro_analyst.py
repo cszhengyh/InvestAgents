@@ -2,7 +2,7 @@ from langchain_core.messages import HumanMessage
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
 from src.tools.news_crawler import get_stock_news
 from src.utils.logging_config import setup_logger
-from src.utils.api_utils import agent_endpoint, log_llm_interaction
+
 import json
 from datetime import datetime, timedelta
 from src.tools.openrouter_config import get_chat_completion
@@ -11,7 +11,7 @@ from src.tools.openrouter_config import get_chat_completion
 logger = setup_logger('macro_analyst_agent')
 
 
-@agent_endpoint("macro_analyst", "宏观分析师，分析宏观经济环境对目标股票的影响")
+
 def macro_analyst_agent(state: AgentState):
     """负责宏观经济分析"""
     show_workflow_status("Macro Analyst")
