@@ -3,6 +3,7 @@ import time
 from google import genai
 from dotenv import load_dotenv
 from dataclasses import dataclass
+from openai import OpenAI
 import backoff
 from src.utils.logging_config import setup_logger, SUCCESS_ICON, ERROR_ICON, WAIT_ICON
 from src.utils.llm_clients import LLMClientFactory
@@ -39,19 +40,21 @@ else:
     logger.warning(f"{ERROR_ICON} 未找到环境变量文件: {env_path}")
 
 # 验证环境变量
-api_key = os.getenv("GEMINI_API_KEY")
-model = os.getenv("GEMINI_MODEL")
+api_key = os.getenv("DEEPSEEK_API_KEY")
+model = os.getenv("DEEPSEEK_MODEL")
 
 if not api_key:
-    logger.error(f"{ERROR_ICON} 未找到 GEMINI_API_KEY 环境变量")
-    raise ValueError("GEMINI_API_KEY not found in environment variables")
+    logger.error(f"{ERROR_ICON} 未找到 DEEPSEEK_API_KEY 环境变量")
+    raise ValueError("DEEPSEEK_API_KEY not found in environment variables")
 if not model:
-    model = "gemini-1.5-flash"
+    model = "deepseek-chat"
     logger.info(f"{WAIT_ICON} 使用默认模型: {model}")
 
 # 初始化 Gemini 客户端
-client = genai.Client(api_key=api_key)
-logger.info(f"{SUCCESS_ICON} Gemini 客户端初始化成功")
+# client = genai.Client(api_key=api_key)
+
+client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+logger.info(f"{SUCCESS_ICON} Deepseek 客户端初始化成功")
 
 
 @backoff.on_exception(
@@ -64,7 +67,7 @@ logger.info(f"{SUCCESS_ICON} Gemini 客户端初始化成功")
 def generate_content_with_retry(model, contents, config=None):
     """带重试机制的内容生成函数"""
     try:
-        logger.info(f"{WAIT_ICON} 正在调用 Gemini API...")
+        logger.info(f"{WAIT_ICON} 正在调用 Deepseek API...")
         logger.debug(f"请求内容: {contents}")
         logger.debug(f"请求配置: {config}")
 
