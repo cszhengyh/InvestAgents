@@ -1,6 +1,5 @@
 from langchain_core.messages import HumanMessage
 from src.agents.state import AgentState, show_agent_reasoning, show_workflow_status
-from src.tools.openrouter_config import get_chat_completion
 
 import json
 import ast
@@ -124,11 +123,6 @@ def debate_room_agent(state: AgentState):
             {"role": "system", "content": "You are a professional financial analyst. Please provide your analysis in English only, not in Chinese or any other language."},
             {"role": "user", "content": llm_prompt}
         ]
-
-        # 使用log_llm_interaction装饰器记录LLM交互
-        llm_response = log_llm_interaction(state)(
-            lambda: get_chat_completion(messages)
-        )()
 
         logger.info("LLM 返回响应完成")
 

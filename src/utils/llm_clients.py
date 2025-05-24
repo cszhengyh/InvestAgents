@@ -24,7 +24,7 @@ class GeminiClient(LLMClient):
     """Google Gemini API 客户端"""
 
     def __init__(self, api_key=None, model=None):
-        self.api_key = api_key or os.getenv("GEMINI_API_KEY")
+        self.api_key = api_key or os.getenv("DEEPSEEK_API_KEY")
         self.model = model or os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
 
         if not self.api_key:

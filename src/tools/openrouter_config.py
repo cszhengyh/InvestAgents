@@ -40,12 +40,12 @@ else:
     logger.warning(f"{ERROR_ICON} 未找到环境变量文件: {env_path}")
 
 # 验证环境变量
-api_key = os.getenv("DEEPSEEK_API_KEY")
-model = os.getenv("DEEPSEEK_MODEL")
+api_key = os.getenv("OPENAI_COMPATIBLE_API_KEY")
+model = os.getenv("OPENAI_COMPATIBLE_MODEL")
 
 if not api_key:
-    logger.error(f"{ERROR_ICON} 未找到 DEEPSEEK_API_KEY 环境变量")
-    raise ValueError("DEEPSEEK_API_KEY not found in environment variables")
+    logger.error(f"{ERROR_ICON} 未找到 OPENAI_COMPATIBLE_API_KEY 环境变量")
+    raise ValueError("OPENAI_COMPATIBLE_API_KEY not found in environment variables")
 if not model:
     model = "deepseek-chat"
     logger.info(f"{WAIT_ICON} 使用默认模型: {model}")
@@ -54,7 +54,7 @@ if not model:
 # client = genai.Client(api_key=api_key)
 
 client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
-logger.info(f"{SUCCESS_ICON} Deepseek 客户端初始化成功")
+logger.info(f"{SUCCESS_ICON} OpenAI Compatible 客户端初始化成功")
 
 
 @backoff.on_exception(

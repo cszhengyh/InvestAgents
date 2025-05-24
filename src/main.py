@@ -23,8 +23,7 @@ from src.agents.debate_room import debate_room_agent
 
 # --- Logging and Backend Imports ---
 from src.utils.output_logger import OutputLogger
-# 导入原始函数，但不再进行猴子补丁
-from src.tools.openrouter_config import get_chat_completion
+from src.utils.logging_config import setup_logger
 
 # --- Import Summary Report Generator ---
 try:
@@ -41,20 +40,8 @@ try:
 except ImportError:
     HAS_STRUCTURED_OUTPUT = False
 
-# --- Initialize Logging ---
-
-# 移除猴子补丁逻辑
-# 1. Wrap the original LLM call function
-# logged_get_chat_completion = wrap_llm_call(original_get_chat_completion)
-
-# 2. Monkey-patch the function in its original module
-# src.tools.openrouter_config.get_chat_completion = logged_get_chat_completion
-# Optional: Confirmation message
-# print("--- Patched get_chat_completion for logging ---")
-
-# Initialize standard output logging
-# This will create a timestamped log file in the logs directory
 sys.stdout = OutputLogger()
+logger = setup_logger('main_workflow')
 
 
 # --- Run the Hedge Fund Workflow ---
